@@ -18,7 +18,8 @@ import { ScanQRCodePage } from '../pages/scan-qrcode/scan-qrcode';
 import { SearchAttendancePage } from '../pages/search-attendance/search-attendance';
 import { ViewAttendancePage } from '../pages/view-attendance/view-attendance';
 import { WelcomePage } from '../pages/welcome/welcome';
-
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -45,7 +46,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    NgxQRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -70,6 +72,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
