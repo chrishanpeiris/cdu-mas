@@ -46,3 +46,4 @@ backend/.rocketeer/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
+.idea/php.xml
