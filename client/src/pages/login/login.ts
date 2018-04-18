@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {AlertController, NavController} from 'ionic-angular';
 import { StudentHomePage } from '../student-home/student-home';
 import { ViewQRCodePage } from '../view-qrcode/view-qrcode';
 import { SignupPage } from '../signup/signup';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
+import {AuthProvider} from "../../providers/auth/auth";
 
 @Component({
   selector: 'page-login',
@@ -11,19 +12,51 @@ import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController) {
+  user = {email: '', password: ''};
+  authresponse: any;
+  autherrors: any;
+  errormessage: any;
+
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public AuthProvider: AuthProvider) {
   }
   goToStudentHome(params){
-    if (!params) params = {};
-    this.navCtrl.push(StudentHomePage);
-  }goToViewQRCode(params){
+    this.AuthProvider.userLogin(this.user).then((result) => {
+      this.authresponse = result;
+      console.log(this.authresponse.access_token);
+      if (this.authresponse != null) {
+        this.AuthProvider.storeToken(this.authresponse.access_token);
+        this.navCtrl.push(StudentHomePage);
+      }
+    }, (err) => {
+      this.autherrors = err;
+
+      if (err.statusText = "Unauthorized") {
+        this.showLoginAlert();
+        console.log(this.errormessage);
+      }
+      console.log(this.autherrors);
+    });
+  }
+  goToViewQRCode(params){
     if (!params) params = {};
     this.navCtrl.push(ViewQRCodePage);
-  }goToSignup(params){
+  }
+  goToSignup(params){
     if (!params) params = {};
     this.navCtrl.push(SignupPage);
-  }goToForgotPassword(params){
+  }
+  goToForgotPassword(params){
     if (!params) params = {};
     this.navCtrl.push(ForgotPasswordPage);
   }
+
+  showLoginAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Oops! Login failed!',
+      subTitle: 'Incorrect username or password, Please check and try again',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
 }
