@@ -5,7 +5,7 @@ backend/public/hot
 backend/public/storage
 backend/storage/*.key
 backend/vendor
-backend/.idea
+.idea
 backend/.vscode
 backend/.vagrant
 backend/Homestead.json
@@ -15,10 +15,14 @@ backend/yarn-error.log
 backend/.env
 backend/.rocketeer/
 
-.idea
+
 # User-specific stuff:
 .idea/**/workspace.xml
+.idea/**/php.xml
+.idea/**/vcs.xml
 .idea/**/tasks.xml
+.idea/php.xml
+.idea/vcs.xml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/

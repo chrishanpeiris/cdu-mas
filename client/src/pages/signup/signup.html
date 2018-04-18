@@ -12,47 +12,47 @@
         <ion-label>
           Lecture
         </ion-label>
-        <ion-toggle color="positive" checked="false"></ion-toggle>
+        <ion-toggle color="positive" [(ngModel)]="type" name="type" (ionChange)="typeValue()" ></ion-toggle>
       </ion-item>
       <ion-item id="signup-input3">
         <ion-label>
           Name
         </ion-label>
-        <ion-input type="text" placeholder=""></ion-input>
+        <ion-input type="text" [(ngModel)]="user.name" name="name" placeholder=""></ion-input>
       </ion-item>
       <ion-item id="signup-input4">
         <ion-label>
           Email
         </ion-label>
-        <ion-input type="email" placeholder=""></ion-input>
+        <ion-input type="email" [(ngModel)]="user.email" name="email" placeholder=""></ion-input>
       </ion-item>
       <ion-item id="signup-input5">
         <ion-label>
           ID number
         </ion-label>
-        <ion-input type="text" placeholder=""></ion-input>
+        <ion-input type="text" [(ngModel)]="user.student_id" name="student_id" placeholder=""></ion-input>
       </ion-item>
       <ion-item id="signup-input6">
         <ion-label>
           Mobile
         </ion-label>
-        <ion-input type="tel" placeholder=""></ion-input>
+        <ion-input type="tel" [(ngModel)]="user.mobile" name="mobile" placeholder=""></ion-input>
       </ion-item>
       <ion-item id="signup-input7">
         <ion-label>
           Password
         </ion-label>
-        <ion-input type="password" placeholder=""></ion-input>
+        <ion-input type="password" [(ngModel)]="user.password" name="password" placeholder=""></ion-input>
       </ion-item>
     </ion-list>
     <ion-item id="signup-input11">
       <ion-label>
         Confirm Password
       </ion-label>
-      <ion-input type="password" placeholder=""></ion-input>
+      <ion-input type="password" [(ngModel)]="user.password_confirmation" name="password_confirmation" placeholder=""></ion-input>
     </ion-item>
   </form>
-  <button id="signup-button4" ion-button color="dark" block>
+  <button id="signup-button4" ion-button color="dark" on-click="registerUser()" block>
     Sign up
   </button>
 </ion-content>
