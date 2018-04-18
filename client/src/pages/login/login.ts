@@ -24,6 +24,7 @@ export class LoginPage {
       this.authresponse = result;
       console.log(this.authresponse.access_token);
       if (this.authresponse != null) {
+        this.AuthProvider.storeToken(this.authresponse.access_token);
         this.navCtrl.push(StudentHomePage);
       }
     }, (err) => {

@@ -10,7 +10,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthProvider {
 
-  apiURL='http://localhost:8000/api/auth';
+  apiURL='http://localhost:8000/api';
+
+  public authToken;
 
   constructor(public http: HttpClient) {
     console.log('Hello AuthProvider Provider');
@@ -19,7 +21,7 @@ export class AuthProvider {
 
   userLogin(data) {
     return new Promise((resolve,reject)=>{
-      this.http.post(this.apiURL+'/login', JSON.stringify(data), {
+      this.http.post(this.apiURL+'/auth/login', JSON.stringify(data), {
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json'),
       })
         .subscribe(res => {
@@ -33,5 +35,52 @@ export class AuthProvider {
     });
 
   }
+
+  userRegistration(data){
+    return new Promise((resolve,reject)=>{
+      this.http.post(this.apiURL+'/register', JSON.stringify(data), {
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json'),
+      })
+        .subscribe(res => {
+          resolve(res);
+          console.log(res);
+
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        })
+    });
+
+  }
+
+  getUser(){
+
+    return new Promise((resolve,reject)=>{
+      this.http.post(this.apiURL+'/me', "", {
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
+          .set('Authorization','Bearer'+this.getToken()),
+      })
+        .subscribe(res => {
+          resolve(res);
+          console.log(res);
+
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        })
+    });
+  }
+
+
+ storeToken(token) {
+
+    window.localStorage.setItem("token",token);
+    console.log("token saved");
+
+  }
+
+getToken(){
+    return window.localStorage.getItem("token");
+}
 
 }

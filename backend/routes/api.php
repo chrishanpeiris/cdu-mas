@@ -24,5 +24,6 @@ Route::group(['prefix' => 'auth'], function ($router) {
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 
-
 });
+
+Auth::routes();
