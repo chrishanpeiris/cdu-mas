@@ -26,4 +26,6 @@ Route::group(['prefix' => 'auth'], function ($router) {
 
 });
 
-Auth::routes();
+Route::post('register','ApiRegisterController@register');
+
+//Auth::routes();

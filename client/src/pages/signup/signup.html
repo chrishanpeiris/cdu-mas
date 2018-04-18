@@ -12,7 +12,7 @@
         <ion-label>
           Lecture
         </ion-label>
-        <ion-toggle color="positive" [(ngModel)]="user.type" name="type" checked="false"></ion-toggle>
+        <ion-toggle color="positive" [(ngModel)]="type" name="type" (ionChange)="typeValue()" ></ion-toggle>
       </ion-item>
       <ion-item id="signup-input3">
         <ion-label>
@@ -52,7 +52,7 @@
       <ion-input type="password" [(ngModel)]="user.password_confirmation" name="password_confirmation" placeholder=""></ion-input>
     </ion-item>
   </form>
-  <button id="signup-button4" ion-button color="dark" block>
+  <button id="signup-button4" ion-button color="dark" on-click="registerUser()" block>
     Sign up
   </button>
 </ion-content>
