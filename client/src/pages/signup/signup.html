@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Signup
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding id="page3" class="app-background">
+ <!--<form id="signup-form2">-->
+    <ion-list id="signup-list2">
+      <ion-item id="signup-toggle1">
+        <ion-label>
+          Lecture
+        </ion-label>
+        <ion-toggle color="positive" checked="false"></ion-toggle>
+      </ion-item>
+      <ion-item id="signup-input3">
+        <ion-label>
+          Name
+        </ion-label>
+        <ion-input type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item id="signup-input4">
+        <ion-label>
+          Email
+        </ion-label>
+        <ion-input type="email" placeholder="" ></ion-input>
+      </ion-item>
+      <ion-item id="signup-input5">
+        <ion-label>
+          ID number
+        </ion-label>
+        <ion-input type="text" placeholder="" [(ngModel)]="qrData"></ion-input>
+      </ion-item>
+      <ion-item id="signup-input6">
+        <ion-label>
+          Mobile
+        </ion-label>
+        <ion-input type="text" placeholder="" [(ngModel)]="qrData2"></ion-input>
+      </ion-item>
+      <ion-item id="signup-input7">
+        <ion-label>
+          Password
+        </ion-label>
+        <ion-input type="password" placeholder=""></ion-input>
+      </ion-item>
+    <ion-item id="signup-input18">
+      <ion-label>
+        Confirm Password
+      </ion-label>
+      <ion-input type="password" placeholder=""></ion-input>
+    </ion-item>
+    </ion-list>
+  <!--</form>-->
+ <button ion-button full icon-left (click)="createCode()">
+   <ion-icon name="barcode"></ion-icon>
+   Sign up
+ </button>
+
+<ion-content padding>
+  <!--
+  <ion-item>
+    <ion-input type="text" placeholder="signup-input5" [(ngModel)]="qrData">
+    </ion-input>
+  </ion-item>
+-->
+       <ion-card *ngIf="createdCode">
+     <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
+       </ion-card>
+   <ion-card *ngIf="scannedCode">
+     <ion-card-content>
+       Result from Scan: {{ scannedCode }}
+     </ion-card-content>
+   </ion-card>
+ </ion-content>
+</ion-content>
