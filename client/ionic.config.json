@@ -1,8 +1,0 @@
-{
-  "name": "xynin",
-  "app_id": "09734794",
-  "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  }
-}
