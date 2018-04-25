@@ -18,6 +18,7 @@ import { ScanQRCodePage } from '../pages/scan-qrcode/scan-qrcode';
 import { SearchAttendancePage } from '../pages/search-attendance/search-attendance';
 import { ViewAttendancePage } from '../pages/view-attendance/view-attendance';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { TabsStudentPage } from '../pages/tabs-student/tabs-student';
 
 import { HttpClientModule } from '@angular/common/http';
 import {NgxQRCodeModule} from "ngx-qrcode3";
@@ -45,7 +46,8 @@ import { AuthProvider } from '../providers/auth/auth';
     ScanQRCodePage,
     SearchAttendancePage,
     ViewAttendancePage,
-    WelcomePage
+    WelcomePage,
+    TabsStudentPage
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,8 @@ import { AuthProvider } from '../providers/auth/auth';
     ScanQRCodePage,
     SearchAttendancePage,
     ViewAttendancePage,
-    WelcomePage
+    WelcomePage,
+    TabsStudentPage
   ],
   providers: [
     StatusBar,
