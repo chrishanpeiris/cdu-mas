@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Signup
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page3" class="app-background">
+  <form id="signup-form2">
+    <ion-list id="signup-list2">
+      <ion-item id="signup-toggle1">
+        <ion-label>
+          Lecture
+        </ion-label>
+        <ion-toggle color="positive" [(ngModel)]="type" name="type" (ionChange)="typeValue()" ></ion-toggle>
+      </ion-item>
+      <ion-item id="signup-input3">
+        <ion-input type="text" [(ngModel)]="user.name" name="name" placeholder="Name"></ion-input>
+      </ion-item>
+      <ion-item id="signup-input4">
+        <ion-input type="email" [(ngModel)]="user.email" name="email" placeholder="Email"></ion-input>
+      </ion-item>
+      <ion-item id="signup-input5">
+        <ion-input type="text" [(ngModel)]="user.student_id" name="student_id" placeholder="ID number"></ion-input>
+      </ion-item>
+      <ion-item id="signup-input6">
+        <ion-input type="tel" [(ngModel)]="user.mobile" name="mobile" placeholder="Mobile"></ion-input>
+      </ion-item>
+      <ion-item id="signup-input7">
+        <ion-input type="password" [(ngModel)]="user.password" name="password" placeholder="Password"></ion-input>
+      </ion-item>
+      <ion-item id="signup-input11">
+        <ion-input type="password" [(ngModel)]="user.password_confirmation" name="password_confirmation" placeholder="Confirm Password"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+  <button id="signup-button4" ion-button color="dark" on-click="registerUser()" block>
+    Sign up
+  </button>
+</ion-content>
