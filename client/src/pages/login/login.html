@@ -8,18 +8,12 @@
       <ion-item id="login-input1">
 
         <!--User email-->
-        <ion-label>
-          Email
-        </ion-label>
-        <ion-input type="email" [(ngModel)]="user.email" name="email" placeholder=""></ion-input>
+        <ion-input type="email" [(ngModel)]="user.email" name="email" placeholder="Email"></ion-input>
       </ion-item>
 
       <!--User Password-->
       <ion-item id="login-input2">
-        <ion-label>
-          Password
-        </ion-label>
-        <ion-input type="password" [(ngModel)]="user.password" name="password" placeholder=""></ion-input>
+        <ion-input type="password" [(ngModel)]="user.password" name="password" placeholder="Password"></ion-input>
       </ion-item>
     </ion-list>
     <button id="login-button3" ion-button clear color="dark" block small style="color:#000000;font-size:14px;text-align:left;" on-click="goToForgotPassword()">
