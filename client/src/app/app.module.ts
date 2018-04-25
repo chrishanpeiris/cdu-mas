@@ -19,6 +19,7 @@ import { SearchAttendancePage } from '../pages/search-attendance/search-attendan
 import { ViewAttendancePage } from '../pages/view-attendance/view-attendance';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { TabsStudentPage } from '../pages/tabs-student/tabs-student';
+import { TabsLecturePage } from '../pages/tabs-lecture/tabs-lecture';
 
 import { HttpClientModule } from '@angular/common/http';
 import {NgxQRCodeModule} from "ngx-qrcode3";
@@ -47,7 +48,8 @@ import { AuthProvider } from '../providers/auth/auth';
     SearchAttendancePage,
     ViewAttendancePage,
     WelcomePage,
-    TabsStudentPage
+    TabsStudentPage,
+    TabsLecturePage
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,8 @@ import { AuthProvider } from '../providers/auth/auth';
     SearchAttendancePage,
     ViewAttendancePage,
     WelcomePage,
-    TabsStudentPage
+    TabsStudentPage,
+    TabsLecturePage
   ],
   providers: [
     StatusBar,

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AlertController, NavController} from 'ionic-angular';
-import {TabsStudentPage} from '../tabs-student/tabs-student'
+import {TabsStudentPage} from '../tabs-student/tabs-student';
+import {TabsLecturePage} from '../tabs-lecture/tabs-lecture'
 import { ViewQRCodePage } from '../view-qrcode/view-qrcode';
 import { SignupPage } from '../signup/signup';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
@@ -25,7 +26,7 @@ export class LoginPage {
       console.log(this.authresponse.access_token);
       if (this.authresponse != null) {
         this.AuthProvider.storeToken(this.authresponse.access_token);
-        this.navCtrl.push(TabsStudentPage);
+        this.navCtrl.push(TabsLecturePage);
       }
     }, (err) => {
       this.autherrors = err;
