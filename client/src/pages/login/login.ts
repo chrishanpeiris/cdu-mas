@@ -17,16 +17,20 @@ export class LoginPage {
   authresponse: any;
   autherrors: any;
   errormessage: any;
+  getAuthUser:any;
+  logUserType: any;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public AuthProvider: AuthProvider) {
   }
   goToStudentHome(params){
+
     this.AuthProvider.userLogin(this.user).then((result) => {
       this.authresponse = result;
       console.log(this.authresponse.access_token);
       if (this.authresponse != null) {
         this.AuthProvider.storeToken(this.authresponse.access_token);
-        this.navCtrl.push(TabsLecturePage);
+
+        this.userAuthentication();
       }
     }, (err) => {
       this.autherrors = err;
@@ -58,6 +62,27 @@ export class LoginPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  userAuthentication(){
+    this.AuthProvider.getUser()
+      .then(data =>{
+        this.getAuthUser=data;
+        console.log(this.getAuthUser.type);
+// this.logUserType=this.getAuthUser.type;
+
+        if(this.getAuthUser.type)
+        {
+          this.navCtrl.push(TabsLecturePage);
+        }else
+        {
+          this.navCtrl.push(TabsStudentPage);
+        }
+      });
+
+
+
+
   }
 
 }
