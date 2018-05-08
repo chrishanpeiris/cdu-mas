@@ -10,7 +10,7 @@ import {LoginPage} from "../login/login";
 })
 export class SignupPage {
 
- public type : boolean=true;
+ public type : boolean=false;
 
 
   typeValue()

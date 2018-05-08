@@ -3,9 +3,6 @@
   <!--<img src="assets/img/ajuxFLriRaG10KcQLowt_QRCode_sample.png" style="display:block;width:65%;height:auto;margin-left:auto;margin-right:auto;" />-->
   <ion-card *ngIf="createdCode">
     <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
-    <ion-card-content>
-      <p>Value : {{ createdCode}}</p>
-    </ion-card-content>
   </ion-card>
 
   <div class="spacer" style="width:300px;height:17px;" id="viewQRCode-spacer6"></div>
