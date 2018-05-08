@@ -18,10 +18,16 @@ import { ScanQRCodePage } from '../pages/scan-qrcode/scan-qrcode';
 import { SearchAttendancePage } from '../pages/search-attendance/search-attendance';
 import { ViewAttendancePage } from '../pages/view-attendance/view-attendance';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { TabsStudentPage } from '../pages/tabs-student/tabs-student';
+import { TabsLecturePage } from '../pages/tabs-lecture/tabs-lecture';
 
+import { HttpClientModule } from '@angular/common/http';
+import {NgxQRCodeModule} from "ngx-qrcode3";
+import { BarcodeScanner} from '@ionic-native/barcode-scanner';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -41,10 +47,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ScanQRCodePage,
     SearchAttendancePage,
     ViewAttendancePage,
-    WelcomePage
+    WelcomePage,
+    TabsStudentPage,
+    TabsLecturePage
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    NgxQRCodeModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -65,12 +75,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ScanQRCodePage,
     SearchAttendancePage,
     ViewAttendancePage,
-    WelcomePage
+    WelcomePage,
+    TabsStudentPage,
+    TabsLecturePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider,
+    BarcodeScanner
   ]
 })
 export class AppModule {}

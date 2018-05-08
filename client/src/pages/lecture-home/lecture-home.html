@@ -1,25 +1,10 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Lecture Home
-    </ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header>
 <ion-content padding id="page12" class="app-background">
   <img src="assets/img/9VEaD8g4T9SQknhGDzO2_person.png" style="display:block;width:75%;height:auto;margin-left:auto;margin-right:auto;" />
   <div class="spacer" style="width:300px;height:15px;" id="lectureHome-spacer8"></div>
   <div id="lectureHome-markdown11" style="text-align:center;" class="show-list-numbers-and-dots">
     <p style="color:#000000;font-size:18px;">
-      Welcome Alex !
+      Welcome {{lecturer?.name}} !
     </p>
   </div>
   <div class="spacer" style="width:300px;height:52px;" id="lectureHome-spacer9"></div>
-  <button id="lectureHome-button14" ion-button color="dark" block on-click="goToViewQRCode()">
-    View courses
-  </button>
 </ion-content>
