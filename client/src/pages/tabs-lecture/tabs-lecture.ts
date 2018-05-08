@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, App } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
 import { LectureHomePage } from '../lecture-home/lecture-home';
 import { ViewCoursesPage } from '../view-courses/view-courses';
 import {AuthProvider} from "../../providers/auth/auth";
@@ -11,7 +11,6 @@ import {AuthProvider} from "../../providers/auth/auth";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-tabs-lecture',
   templateUrl: 'tabs-lecture.html'
