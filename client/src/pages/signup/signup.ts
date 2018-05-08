@@ -11,6 +11,7 @@ import {LoginPage} from "../login/login";
 export class SignupPage {
 
  public type : boolean=false;
+ public spinner : boolean=false;
 
 
   typeValue()
@@ -39,9 +40,11 @@ export class SignupPage {
   }
 
   registerUser(params){
+    this.spinner = true;
     this.AuthProvider.userRegistration(this.user).then((result) => {
       this.authresponse = result;
       if (this.authresponse != null) {
+        this.spinner = false;
         this.showRegistrationSuccessAlert();
         this.navCtrl.push(LoginPage);
       }
@@ -49,6 +52,7 @@ export class SignupPage {
       this.autherrors = err;
 
       if (err.statusText = "Unauthorized") {
+        this.spinner = false;
         this.showRegistrationFaildAlert();
         console.log(this.errormessage);
       }

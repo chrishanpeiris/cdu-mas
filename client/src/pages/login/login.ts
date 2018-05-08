@@ -19,22 +19,24 @@ export class LoginPage {
   errormessage: any;
   getAuthUser:any;
   logUserType: any;
+  public spinner : boolean=false;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public AuthProvider: AuthProvider) {
   }
   goToStudentHome(params){
-
+    this.spinner = true;
     this.AuthProvider.userLogin(this.user).then((result) => {
       this.authresponse = result;
       console.log(this.authresponse.access_token);
       if (this.authresponse != null) {
+        
         this.AuthProvider.storeToken(this.authresponse.access_token);
 
         this.userAuthentication();
       }
     }, (err) => {
       this.autherrors = err;
-
+      this.spinner = false;
       if (err.statusText = "Unauthorized") {
         this.showLoginAlert();
         console.log(this.errormessage);
@@ -74,9 +76,11 @@ export class LoginPage {
         if(this.getAuthUser.type)
         {
           this.navCtrl.push(TabsLecturePage);
+          this.spinner = false;
         }else
         {
           this.navCtrl.push(TabsStudentPage);
+          this.spinner = false;
         }
       });
 
