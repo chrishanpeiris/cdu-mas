@@ -29,7 +29,6 @@
     "@ionic/storage": "2.1.3",
     "cordova-android": "7.0.0",
     "cordova-browser": "5.0.3",
-    "cordova-js": "^4.2.2",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.2.1",
@@ -37,7 +36,6 @@
     "cordova-plugin-whitelist": "^1.3.3",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
-    "ngx-qrcode2": "^0.1.0",
     "ngx-qrcode3": "^0.3.0",
     "phonegap-plugin-barcodescanner": "^7.1.1",
     "rxjs": "5.5.8",
@@ -51,9 +49,7 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "phonegap-plugin-barcodescanner": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
+      "phonegap-plugin-barcodescanner": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},

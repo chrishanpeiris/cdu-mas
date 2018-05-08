@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthProvider {
 
-  apiURL='http://localhost:8000/api';
+  apiURL='https://cdu-mas.herokuapp.com/api';
 
   public authToken;
 
@@ -35,6 +35,26 @@ export class AuthProvider {
     });
 
   }
+
+
+  userLogOut(){
+
+    return new Promise((resolve,reject)=>{
+      this.http.post(this.apiURL+'/auth/logout', "", {
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
+          .set('Authorization','Bearer'+this.getToken()),
+      })
+        .subscribe(res => {
+          resolve(res);
+          console.log(res);
+
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        })
+    });
+  }
+
 
   userRegistration(data){
     return new Promise((resolve,reject)=>{

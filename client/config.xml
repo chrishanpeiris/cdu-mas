@@ -85,6 +85,4 @@
     <allow-navigation href="http://localhost:8100" />
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="7.0.0" />
-    <allow-navigation href="http://138.80.105.201:8100" />
-    <allow-navigation href="http://192.168.56.1:8100" />
 </widget>

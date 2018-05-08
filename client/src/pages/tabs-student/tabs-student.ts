@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { StudentHomePage } from '../student-home/student-home';
 import { ViewQRCodePage } from '../view-qrcode/view-qrcode';
 import { LoginPage } from '../login/login';
@@ -11,6 +11,7 @@ import { LoginPage } from '../login/login';
  * Ionic pages and navigation.
  */
 
+@IonicPage()
 @Component({
   selector: 'page-tabs-student',
   templateUrl: 'tabs-student.html',
