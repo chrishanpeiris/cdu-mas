@@ -1,0 +1,58 @@
+<ion-content padding id="markAttendance" class="app-background">
+  <form id="markAttendance-form8">
+    <ion-item id="markAttendance-select1">
+      <ion-label>
+        Week number
+      </ion-label>
+      <ion-select name="">
+        <ion-option>
+          Please select
+        </ion-option>
+        <ion-option>
+          Week 01
+        </ion-option>
+        <ion-option>
+          Week 02
+        </ion-option>
+        <ion-option>
+          Week 03
+        </ion-option>
+        <ion-option>
+          Week 04
+        </ion-option>
+        <ion-option>
+          Week 05
+        </ion-option>
+        <ion-option>
+          Week 06
+        </ion-option>
+        <ion-option>
+          Week 07
+        </ion-option>
+        <ion-option>
+          Week 08
+        </ion-option>
+        <ion-option>
+          Week 09
+        </ion-option>
+        <ion-option>
+          Week 10
+        </ion-option>
+        <ion-option>
+          Week 11
+        </ion-option>
+        <ion-option>
+          Week 12
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </form>
+  <button id="markAttendance-button11" ion-button color="dark" block on-click="scanStudentQRCode()">
+    Scan QR code
+  </button>
+  <ion-card *ngIf="scannedCode">
+    <ion-card-content>
+       Student ID : {{ scannedCode}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>
