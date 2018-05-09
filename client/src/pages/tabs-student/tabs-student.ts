@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, App } from 'ionic-angular';
-import { StudentHomePage } from '../student-home/student-home';
-import { ViewQRCodePage } from '../view-qrcode/view-qrcode';
-import { LoginPage } from '../login/login';
+import {Component} from '@angular/core';
+import {App, NavController, NavParams} from 'ionic-angular';
+import {StudentHomePage} from '../student-home/student-home';
+import {ViewQRCodePage} from '../view-qrcode/view-qrcode';
+import {AuthProvider} from "../../providers/auth/auth";
 
 /**
  * Generated class for the TabsStudentPage page.
@@ -20,13 +20,19 @@ export class TabsStudentPage {
   tab1Root: any = StudentHomePage;
   tab2Root: any = ViewQRCodePage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public app:App) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public authProvider: AuthProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TabsStudentPage');
   }
+
   logoutClicked() {
+    this.authProvider.userLogOut().then(data => {
+
+      console.log(data);
+
+    });
     const root = this.app.getRootNav();
     root.popToRoot();
   }

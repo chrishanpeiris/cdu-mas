@@ -19,16 +19,6 @@ export class StudentHomePage {
   }
 
 
-  getStudent(){
-    this.authProvide.getUser()
-      .then(data =>{
-        this.student=data;
-        console.log(this.student);
-
-        });
-
-  }
-
   goToViewQRCode(params){
     if (!params) params = {};
     this.navCtrl.push(ViewQRCodePage);
@@ -36,4 +26,14 @@ export class StudentHomePage {
     if (!params) params = {};
     this.navCtrl.push(StudentHomePage);
   }
+
+  getStudent(){
+    this.authProvide.getUser()
+      .then(data =>{
+        this.student=data;
+        console.log(this.student);
+      });
+
+  }
+
 }
