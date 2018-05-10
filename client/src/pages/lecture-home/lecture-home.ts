@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ViewQRCodePage } from '../view-qrcode/view-qrcode';
 import { StudentHomePage } from '../student-home/student-home';
 import {AuthProvider} from "../../providers/auth/auth";
+import {AttendanceProvider} from "../../providers/attendance/attendance";
 
 @Component({
   selector: 'page-lecture-home',
@@ -12,8 +13,12 @@ export class LectureHomePage {
 
   lecturer:any;
 
-  constructor(public navCtrl: NavController,public authProvider : AuthProvider) {
+  constructor(public navCtrl: NavController,public authProvider : AuthProvider,public attandance:AttendanceProvider) {
     this.getLecturer();
+    this.attandance.getUnits()
+      .then(data =>{
+        console.log(data);
+      });
   }
   goToViewQRCode(params){
     if (!params) params = {};
