@@ -21,7 +21,8 @@ export class AttendanceProvider {
   getUnits(){
 
     return new Promise((resolve,reject)=>{
-      this.http.post(this.apiURL+'/auth/units', "", {
+      this.http.get(this.apiURL+'/unit', {
+        params: { id: this.authProvider.userId},
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
           .set('Authorization','Bearer'+this.authProvider.getToken()),
       })

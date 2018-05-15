@@ -13,6 +13,7 @@ export class AuthProvider {
   apiURL='https://cdu-mas.herokuapp.com/api';
 
   public authToken;
+  public userId;
 
   constructor(public http: HttpClient) {
     console.log('Hello AuthProvider Provider');
@@ -77,6 +78,25 @@ export class AuthProvider {
 
     return new Promise((resolve,reject)=>{
       this.http.post(this.apiURL+'/auth/me', "", {
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
+          .set('Authorization','Bearer'+this.getToken()),
+      })
+        .subscribe(res => {
+          resolve(res);
+          this.userId = res["id"];
+          console.log(res);
+
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        })
+    });
+  }
+
+  getUnits(){
+    return new Promise((resolve,reject)=>{
+      this.http.get(this.apiURL+'/unit', {
+        params: { id: this.userId},
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
           .set('Authorization','Bearer'+this.getToken()),
       })

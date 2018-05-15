@@ -1,20 +1,12 @@
 <ion-content padding id="page13" class="app-background">
   <ion-list id="viewCourses-list12">
-    <ion-item color="none" id="viewCourses-list-item20" on-click="gotoCourse()">
-      PRT574
-      <ion-icon name="arrow-round-forward" item-right></ion-icon>
-    </ion-item>
-    <ion-item color="none" id="viewCourses-list-item21" on-click="gotoCourse()">
-      PRT574
-      <ion-icon name="arrow-round-forward" item-right></ion-icon>
-    </ion-item>
-    <ion-item color="none" id="viewCourses-list-item22" on-click="gotoCourse()">
-      PRT500
-      <ion-icon name="arrow-round-forward" item-right></ion-icon>
-    </ion-item>
-    <ion-item color="none" id="viewCourses-list-item23" on-click="gotoCourse()">
-      PRT551
+    <ion-item color="none" id="viewCourses-list-item20" on-click="gotoCourse()" *ngFor="let item of units">
+      {{item?.unit_id}} 
       <ion-icon name="arrow-round-forward" item-right></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>
+
+<div class="spinnerOverlay" *ngIf="spinner">
+  <ion-spinner name="crescent"></ion-spinner>
+  </div>

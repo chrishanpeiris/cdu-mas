@@ -11,7 +11,7 @@ import {AttendanceProvider} from "../../providers/attendance/attendance";
 })
 export class LectureHomePage {
 
-  lecturer:any;
+  public lecturer:any;
 
   constructor(public navCtrl: NavController,public authProvider : AuthProvider,public attandance:AttendanceProvider) {
     this.getLecturer();
