@@ -23,11 +23,10 @@ Route::group(['prefix' => 'auth'], function ($router) {
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-//    Route::get('units', 'UnitController@index');
-
 
 });
-Route::get('units', 'UnitController@index');
+
+Route::resource('unit','UnitController');
 Route::post('register','ApiRegisterController@register');
 
 //Auth::routes();

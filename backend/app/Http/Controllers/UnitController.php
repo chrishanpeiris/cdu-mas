@@ -14,7 +14,9 @@ class UnitController extends Controller
      */
     public function index()
     {
-        return Unit::all()->toJson();
+
+        $units=Unit::all();
+        return response()->json($units);
     }
 
     /**
@@ -81,5 +83,11 @@ class UnitController extends Controller
     public function destroy(Unit $unit)
     {
         //
+    }
+
+    public function getLectureUnits(Request $request)
+    {
+        $lec_units=Unit::where('id',$request->id);
+        return response()->json($lec_units);
     }
 }
