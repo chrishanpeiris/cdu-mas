@@ -13,13 +13,17 @@ export class ViewQRCodePage {
 
   createdCode:any;
   user:any;
+  randomNumber:any;
+
+
 
   constructor(public navCtrl: NavController,private barcodeScanner: BarcodeScanner, public authProvider: AuthProvider) {
 
     this.createCode();
 
   }
-
+    //
+    
 
   createCode(){
     this.getUserCode();
@@ -28,10 +32,11 @@ export class ViewQRCodePage {
   }
 
   getUserCode(){
+    this.randomNumber = Math.floor((Math.random() * (999-100)) + 100);
     this.authProvider.getUser()
       .then(data =>{
         this.user=data;
-        this.createdCode=this.user.student_id;
+        this.createdCode=this.user.student_id +this.user.id+this.randomNumber;
         console.log(this.createdCode);
 
       });
