@@ -14,8 +14,6 @@ export class CoursePage {
   unit_id:string;
 
   constructor(public navCtrl: NavController,public navParams: NavParams/*,private barcodeScanner : BarcodeScanner*/) {
-    debugger
-
     this.unit_id=this.navParams.data;
     console.log(this.unit_id);
   }

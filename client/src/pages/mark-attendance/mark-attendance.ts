@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController} from 'ionic-angular';
+import {NavController, AlertController, NavParams} from 'ionic-angular';
 import { ScanQRCodePage } from '../scan-qrcode/scan-qrcode';
 import { BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {ViewCoursesPage} from "../view-courses/view-courses";
@@ -16,22 +16,19 @@ export class MarkAttendancePage {
   public studentObj:any;
   public matchedSearch:any;
   public matchedId:any;
-  constructor(public navCtrl: NavController, private barcodeScanner : BarcodeScanner, public alertCtrl: AlertController) {
+
+  public selectWeek:any;
+  unit_Ob:any;
+  constructor(public navCtrl: NavController,public navParam:NavParams, private barcodeScanner : BarcodeScanner, public alertCtrl: AlertController) {
+
+    this.unit_Ob=this.navParam.data;
+    console.log(this.unit_Ob);
+
   }
 
   scanStudentQRCode(){
 
-    /*if (this.platform.is('cordova')) {
-      this.barcodeScanner.scan().then( barcodeData =>
-        this.scannedCode = barcodeData.text);
-
-    } else {
-      this.barcodeScanner.scan().then( barcodeData =>
-        this.scannedCode = barcodeData.text);
-
-    }*/
-    /*this.barcodeScanner.scan().then( barcodeData =>
-    this.scannedCode = barcodeData.text);*/
+    console.log(this.selectWeek);
 
     this.barcodeScanner.scan().then(barcodeData => {
       this.scannedCode = barcodeData.text;
@@ -74,6 +71,8 @@ export class MarkAttendancePage {
     this.navCtrl.push(ScanQRCodePage);
   }
 
+
+
   showStudentScannedPopup(result) {
     if (result == 'match') {
       this.message = "Student marked successfully";
@@ -83,6 +82,7 @@ export class MarkAttendancePage {
       this.message = "No student records found";
       this.subMessage = "Please press new student button to try again or press finish button to end marking";
     }
+
     let alert = this.alertCtrl.create({
       title: this.message,
       subTitle: this.subMessage,

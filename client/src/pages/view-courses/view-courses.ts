@@ -9,9 +9,9 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class ViewCoursesPage {
   units:any;
-  unit_id:string;
+  unit_id:any;
   //public unitid :any;
-  unit = {cid: ''};
+  public unit:any = {cid: ""};
   public spinner : boolean=false;
   constructor(public navCtrl: NavController, public authProvider : AuthProvider) {
     this.getUnits();

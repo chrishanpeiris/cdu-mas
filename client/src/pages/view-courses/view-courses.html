@@ -1,10 +1,8 @@
 <ion-content padding id="page13" class="app-background">
   <ion-list id="viewCourses-list12">
     <div *ngFor="let item of units">
-    <!--<ion-item color="none" id="viewCourses-list-item20" on-click="gotoCourse()" >-->
-      <!--<span [(ngModel)]="unit.id" name="id">{{item.unit_id}} +++++++++++++++++++++++++</span>-->
-      <ion-input type="hidden" [(ngModel)]="unit.cid" name="student_id" placeholder="ID number" value="{{item.unit_id}}"> {{item.unit_id}}</ion-input>
-    <ion-item color="none" id="viewCourses-list-item20" on-click="gotoCourse(unit.cid)">
+
+    <ion-item color="none" id="viewCourses-list-item20" on-click="gotoCourse(item)">
       {{item?.unit_name}}
       <ion-icon name="arrow-round-forward" item-right></ion-icon>
     </ion-item>
