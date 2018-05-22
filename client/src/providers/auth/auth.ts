@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 export class AuthProvider {
 
   apiURL='https://cdu-mas.herokuapp.com/api';
+  // apiAdminURL='https://cdu-mas.herokuapp.com/api';
 
   public authToken;
   public userId;

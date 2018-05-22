@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 //import { ScanQRCodePage } from '../scan-qrcode/scan-qrcode';
 import { SearchAttendancePage } from '../search-attendance/search-attendance';
 import { MarkAttendancePage } from '../mark-attendance/mark-attendance'
@@ -11,11 +11,16 @@ import { MarkAttendancePage } from '../mark-attendance/mark-attendance'
 })
 export class CoursePage {
   //scannedCode=null;
+  unit_id:string;
 
-  constructor(public navCtrl: NavController/*,private barcodeScanner : BarcodeScanner*/) {
+  constructor(public navCtrl: NavController,public navParams: NavParams/*,private barcodeScanner : BarcodeScanner*/) {
+    debugger
+
+    this.unit_id=this.navParams.data;
+    console.log(this.unit_id);
   }
 
-  /* moved to mark-attendace page 
+  /* moved to mark-attendace page
   scanStudentQRCode(){
 
     //if (this.platform.is('cordova')) {
@@ -34,13 +39,13 @@ export class CoursePage {
     if (!params) params = {};
     this.navCtrl.push(ScanQRCodePage);
   }*/
-  
+
   goToSearchAttendance(params){
     if (!params) params = {};
     this.navCtrl.push(SearchAttendancePage);
   }
-  goToMarking(params) {
-    if (!params) params = {};
-    this.navCtrl.push(MarkAttendancePage);
+  goToMarking(unit_id) {
+
+    this.navCtrl.push(MarkAttendancePage,unit_id);
   }
 }

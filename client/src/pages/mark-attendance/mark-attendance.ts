@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController} from 'ionic-angular';
+import {NavController, AlertController, NavParams} from 'ionic-angular';
 import { ScanQRCodePage } from '../scan-qrcode/scan-qrcode';
 import { BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {ViewCoursesPage} from "../view-courses/view-courses";
@@ -13,22 +13,14 @@ export class MarkAttendancePage {
   scannedCode=null;
   public message:any;
   public subMessage:any;
-  constructor(public navCtrl: NavController, private barcodeScanner : BarcodeScanner, public alertCtrl: AlertController) {
+
+  unit_id:string;
+  constructor(public navCtrl: NavController,public navParam:NavParams, private barcodeScanner : BarcodeScanner, public alertCtrl: AlertController) {
+    this.unit_id=this.navParam.data;
+    console.log(this.unit_id);
   }
 
   scanStudentQRCode(){
-
-    /*if (this.platform.is('cordova')) {
-      this.barcodeScanner.scan().then( barcodeData =>
-        this.scannedCode = barcodeData.text);
-
-    } else {
-      this.barcodeScanner.scan().then( barcodeData =>
-        this.scannedCode = barcodeData.text);
-
-    }*/
-    /*this.barcodeScanner.scan().then( barcodeData =>
-    this.scannedCode = barcodeData.text);*/
 
     this.barcodeScanner.scan().then(barcodeData => {
       this.scannedCode = barcodeData.text;

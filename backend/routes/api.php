@@ -26,7 +26,7 @@ Route::group(['prefix' => 'auth'], function ($router) {
 
 });
 
-Route::resource('unit','UnitController');
+//Route::resource('unit','UnitController');
 Route::post('register','ApiRegisterController@register');
 
 //Auth::routes();

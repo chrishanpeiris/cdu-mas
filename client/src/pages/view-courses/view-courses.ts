@@ -5,17 +5,20 @@ import {AuthProvider} from "../../providers/auth/auth";
 
 @Component({
   selector: 'page-view-courses',
-  templateUrl: 'view-courses.html'
+  templateUrl: 'view-courses.html',
 })
 export class ViewCoursesPage {
   units:any;
+  unit_id:string;
+  //public unitid :any;
+  unit = {cid: ''};
   public spinner : boolean=false;
   constructor(public navCtrl: NavController, public authProvider : AuthProvider) {
     this.getUnits();
   }
 
-  gotoCourse() {
-    this.navCtrl.push(CoursePage);
+  gotoCourse(id) {
+    this.navCtrl.push(CoursePage,id);
   }
 
   getUnits(){
