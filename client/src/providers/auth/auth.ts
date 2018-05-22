@@ -1,5 +1,5 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 /*
   Generated class for the AuthProvider provider.
@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthProvider {
 
-  apiURL='https://cdu-mas.herokuapp.com/api';
+  apiURL = 'https://cdu-mas.herokuapp.com/api';
   // apiAdminURL='https://cdu-mas.herokuapp.com/api';
 
   public authToken;
@@ -22,8 +22,8 @@ export class AuthProvider {
 
 
   userLogin(data) {
-    return new Promise((resolve,reject)=>{
-      this.http.post(this.apiURL+'/auth/login', JSON.stringify(data), {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiURL + '/auth/login', JSON.stringify(data), {
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json'),
       })
         .subscribe(res => {
@@ -39,12 +39,12 @@ export class AuthProvider {
   }
 
 
-  userLogOut(){
+  userLogOut() {
 
-    return new Promise((resolve,reject)=>{
-      this.http.post(this.apiURL+'/auth/logout', "", {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiURL + '/auth/logout', "", {
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
-          .set('Authorization','Bearer'+this.getToken()),
+          .set('Authorization', 'Bearer' + this.getToken()),
       })
         .subscribe(res => {
           resolve(res);
@@ -58,9 +58,9 @@ export class AuthProvider {
   }
 
 
-  userRegistration(data){
-    return new Promise((resolve,reject)=>{
-      this.http.post(this.apiURL+'/register', JSON.stringify(data), {
+  userRegistration(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiURL + '/register', JSON.stringify(data), {
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json'),
       })
         .subscribe(res => {
@@ -75,12 +75,12 @@ export class AuthProvider {
 
   }
 
-  getUser(){
+  getUser() {
 
-    return new Promise((resolve,reject)=>{
-      this.http.post(this.apiURL+'/auth/me', "", {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiURL + '/auth/me', "", {
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
-          .set('Authorization','Bearer'+this.getToken()),
+          .set('Authorization', 'Bearer' + this.getToken()),
       })
         .subscribe(res => {
           resolve(res);
@@ -94,12 +94,12 @@ export class AuthProvider {
     });
   }
 
-  getUnits(){
-    return new Promise((resolve,reject)=>{
-      this.http.get(this.apiURL+'/unit', {
-        params: { id: this.userId},
+  getUnits() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiURL + '/unit', {
+        params: {id: this.userId},
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
-          .set('Authorization','Bearer'+this.getToken()),
+          .set('Authorization', 'Bearer' + this.getToken()),
       })
         .subscribe(res => {
           resolve(res);
@@ -113,15 +113,53 @@ export class AuthProvider {
   }
 
 
- storeToken(token) {
+  storeToken(token) {
 
-    window.localStorage.setItem("token",token);
+    window.localStorage.setItem("token", token);
     console.log("token saved");
 
   }
 
-getToken(){
+  getToken() {
     return window.localStorage.getItem("token");
-}
+  }
 
+
+  getUnitStudents(unit_id) {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiURL + '/mark', {
+        params: {id: unit_id},
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
+          .set('Authorization', 'Bearer' + this.getToken()),
+      })
+        .subscribe(res => {
+          resolve(res);
+          console.log(res);
+
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        })
+    });
+
+  }
+
+  checkWeekAvailability(unit_id,week)
+  {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiURL + '/mark/check', {
+        params: {id: unit_id,week: week},
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
+          .set('Authorization', 'Bearer' + this.getToken()),
+      })
+        .subscribe(res => {
+          resolve(res);
+          console.log(res);
+
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        })
+    });
+  }
 }
