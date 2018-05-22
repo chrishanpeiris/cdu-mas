@@ -18,12 +18,12 @@ export class MarkAttendancePage {
   public matchedSearch: any;
   public matchedId: any;
   available: any;
-  public avlblStudents:any;
+  public avlblStudents: any;
 
   public selectWeek: any;
   unit_Ob: any;
 
-  constructor(public navCtrl: NavController, public navParam: NavParams, private barcodeScanner: BarcodeScanner, public alertCtrl: AlertController,public authProvider:AuthProvider) {
+  constructor(public navCtrl: NavController, public navParam: NavParams, private barcodeScanner: BarcodeScanner, public alertCtrl: AlertController, public authProvider: AuthProvider) {
 
     this.unit_Ob = this.navParam.data;
     console.log(this.unit_Ob);
@@ -32,7 +32,7 @@ export class MarkAttendancePage {
 
   checkAvailability(id, week) {
 
-    this.authProvider.checkWeekAvailability(id,week)
+    this.authProvider.checkWeekAvailability(id, week)
       .then(data => {
         this.available = data;
         console.log(this.available);
@@ -42,7 +42,7 @@ export class MarkAttendancePage {
     return this.available;
   }
 
-  getAvailableStudents(){
+  getAvailableStudents() {
 
     this.authProvider.getUnitStudents(this.unit_Ob.unit_id).then(data => {
       this.avlblStudents = data;
@@ -50,7 +50,7 @@ export class MarkAttendancePage {
 
     });
 
-    this.avlblStudents=JSON.stringify(this.avlblStudents);
+    this.avlblStudents = JSON.stringify(this.avlblStudents);
     console.log(this.avlblStudents);
     return this.avlblStudents;
 
@@ -61,6 +61,10 @@ export class MarkAttendancePage {
     console.log(this.selectWeek);
 
     if (this.checkAvailability(this.unit_Ob.unit_id, this.selectWeek)) {
+      // this.message = this.selectWeek + " already marked";
+      this.showStudentScannedPopup('week');
+    
+    } else {
 
 
       this.barcodeScanner.scan().then(barcodeData => {
@@ -71,9 +75,8 @@ export class MarkAttendancePage {
         //var studentId = 's3115458';
 
 
-
-        var studentIdArray=this.getAvailableStudents();
-
+        var studentIdArray = this.getAvailableStudents();
+        console.log(studentIdArray);
         /*var studentIdArray = {
           "students": [
             {"name": "Student1", "student_id": "S310954", "user_id": "1"},
@@ -103,10 +106,8 @@ export class MarkAttendancePage {
       }).catch(err => {
         console.log('Error', err);
       });
-
-    }else {
-      this.message=this.selectWeek + " already marked";
     }
+
   }
 
   goToScanQRCode(params) {
@@ -120,9 +121,13 @@ export class MarkAttendancePage {
       this.message = "Student marked successfully";
       this.subMessage = "Please press new student button to mark the next student or press finish button to end marking";
     }
-    else {
+    else if(result == 'unmatch') {
       this.message = "No student records found";
       this.subMessage = "Please press new student button to try again or press finish button to end marking";
+    }else if(result=='week')
+    {
+      this.message = "Already Marked";
+      this.subMessage = "This week is already marked";
     }
 
     let alert = this.alertCtrl.create({
