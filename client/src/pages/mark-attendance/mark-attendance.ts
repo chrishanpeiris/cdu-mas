@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, AlertController, NavParams} from 'ionic-angular';
+import { NavController, AlertController} from 'ionic-angular';
 import { ScanQRCodePage } from '../scan-qrcode/scan-qrcode';
 import { BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {ViewCoursesPage} from "../view-courses/view-courses";
@@ -13,57 +13,61 @@ export class MarkAttendancePage {
   scannedCode=null;
   public message:any;
   public subMessage:any;
-<<<<<<< HEAD
-
-  unit_id:string;
-  constructor(public navCtrl: NavController,public navParam:NavParams, private barcodeScanner : BarcodeScanner, public alertCtrl: AlertController) {
-    this.unit_id=this.navParam.data;
-    console.log(this.unit_id);
-=======
   public studentObj:any;
   public matchedSearch:any;
   public matchedId:any;
   constructor(public navCtrl: NavController, private barcodeScanner : BarcodeScanner, public alertCtrl: AlertController) {
->>>>>>> cf02bf4cf874fbc9c11428773493fa6737e72a10
   }
 
   scanStudentQRCode(){
 
+    /*if (this.platform.is('cordova')) {
+      this.barcodeScanner.scan().then( barcodeData =>
+        this.scannedCode = barcodeData.text);
+
+    } else {
+      this.barcodeScanner.scan().then( barcodeData =>
+        this.scannedCode = barcodeData.text);
+
+    }*/
+    /*this.barcodeScanner.scan().then( barcodeData =>
+    this.scannedCode = barcodeData.text);*/
+
     this.barcodeScanner.scan().then(barcodeData => {
       this.scannedCode = barcodeData.text;
       var str = this.scannedCode;
-      str = str.substring(0, str.length-4);
-      this.scannedCode = str;
+      str = str.substring(0, str.length-3);
+      this.scannedCode = str.toString().split('').pop();
       //var studentId = 's3115458';
       var studentIdArray = {
         "students": [
-            { "name":"Student1", "student_id":"S310954" },
-            { "name":"Lecturer1", "student_id":"L234789" },
-            { "name":"Rock", "student_id":"S377488" },
-            { "name":"Rock", "student_id":"S987124" },
-            { "name":"Rock1", "student_id":"S123654" },
-            { "name":"RockFang", "student_id":"S897567" }
+          { "name":"Student1", "student_id":"S310954", "user_id":"1" },
+          { "name":"Lecturer1", "student_id":"L234789", "user_id":"2" },
+          { "name":"Rock", "student_id":"S377488", "user_id":"3" },
+          { "name":"Rock", "student_id":"S987124", "user_id":"4" },
+          { "name":"Rock1", "student_id":"S123654", "user_id":"5" },
+          { "name":"RockFang", "student_id":"S897567", "user_id":"6" }
         ]
-     }
+      }
 
-     this.studentObj = studentIdArray.students;
+      this.studentObj = studentIdArray.students;
 
-     for (var i = 0; i < this.studentObj.length; i++) {
-        this.matchedSearch = this.studentObj[i].student_id;
+      for (var i = 0; i < this.studentObj.length; i++) {
+        this.matchedSearch = this.studentObj[i].user_id;
         if (this.matchedSearch == this.scannedCode){
           this.matchedId = this.matchedSearch;
-        }  
-     }
-  
+        }
+      }
+
       if (this.scannedCode == this.matchedId) {
         this.showStudentScannedPopup('match');
       }
       else {
         this.showStudentScannedPopup('unmatch');
       }
-     }).catch(err => {
-         console.log('Error', err);
-     });
+    }).catch(err => {
+      console.log('Error', err);
+    });
   }
   goToScanQRCode(params){
     if (!params) params = {};
@@ -88,12 +92,12 @@ export class MarkAttendancePage {
           this.scanStudentQRCode();
         }
       },
-      {
-        text: 'Finish',
-        handler: () => {
+        {
+          text: 'Finish',
+          handler: () => {
             this.navCtrl.push(ViewCoursesPage);
-        }
-      }]
+          }
+        }]
     });
     alert.present();
   }
