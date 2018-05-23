@@ -43,8 +43,8 @@ export class SignupPage {
   registerUser(params){
     this.spinner = true;
     this.AuthProvider.userRegistration(this.user).then((result) => {
-      
       this.authresponse = result;
+      var errorMsg = this.authresponse;
       if (this.authresponse.name == "The name field is required." ) {
         this.spinner = false;
         this.validationError = this.authresponse.name;
@@ -60,12 +60,12 @@ export class SignupPage {
         this.validationError = this.authresponse.student_id;
         this.showValidationAlert();
       }
-      else if (this.authresponse.mobile == "The mobile field is required." || this.authresponse.mobile == "The mobile may not be greater than 10 characters." ) {
+      else if (this.authresponse.mobile == "The mobile field is required." || this.authresponse.mobile == "The mobile may not be greater than 10 characters." || this.authresponse.mobile == "The mobile must be at least 10 characters.") {
         this.spinner = false;
         this.validationError = this.authresponse.mobile;
         this.showValidationAlert();
       }
-      else if (this.authresponse.password == "The password field is required." || this.authresponse.password == "The password must be at least 6 characters." || this.authresponse.password == "The password confirmation does not match.") {
+      else if (this.authresponse.password == "The password field is required." || this.authresponse.password == "The password must be at least 6 characters." || this.authresponse.password == "The password confirmation does not match." || this.authresponse.password == "The password must be at least 6 characters.", "The password confirmation does not match.") {
         this.spinner = false;
         this.validationError = this.authresponse.password;
         this.showValidationAlert();
