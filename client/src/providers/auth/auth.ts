@@ -164,7 +164,7 @@ export class AuthProvider {
 
   markAttendance(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiURL + '/mark/store', JSON.stringify(data), {
+      this.http.post(this.apiURL + '/mark/attendance', JSON.stringify(data), {
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', 'Bearer' + this.getToken()),
       })
         .subscribe(res => {
@@ -180,7 +180,7 @@ export class AuthProvider {
 
   updateAttendance(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiURL + '/mark/update', JSON.stringify(data), {
+      this.http.post(this.apiURL + '/mark/present', JSON.stringify(data), {
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', 'Bearer' + this.getToken()),
       })
         .subscribe(res => {

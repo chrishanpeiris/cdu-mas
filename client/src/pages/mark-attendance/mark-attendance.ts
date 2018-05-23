@@ -24,7 +24,7 @@ export class MarkAttendancePage {
   public selectWeek: any;
   unit_Ob: any;
 
-  attendance = {unit_id: "", student_id: "", week_number: "", attendance: ""};
+  attendance = {unit_id: 0, student_id: 0, week_number: 0, attendance: 0};
 
   constructor(public navCtrl: NavController, public navParam: NavParams, private barcodeScanner: BarcodeScanner, public alertCtrl: AlertController, public authProvider: AuthProvider) {
 
@@ -32,11 +32,11 @@ export class MarkAttendancePage {
     console.log("unit_Ob in const")
     console.log(this.unit_Ob);
     console.log("default Week");
-    this.selectWeek = "Week 01";
+    this.selectWeek = 1;
     console.log(this.selectWeek);
     // console.log("checkAvailability in const")
     console.log(this.checkAvailability(this.unit_Ob.unit_id, this.selectWeek));
-    // console.log("getAvailableStudents in const")
+    console.log("getAvailableStudents in const")
     console.log(this.getAvailableStudents());
 
   }
@@ -46,6 +46,8 @@ export class MarkAttendancePage {
     this.authProvider.checkWeekAvailability(id, week)
       .then(data => {
         this.available = data;
+        console.log(id);
+        console.log(week);
         console.log("availabl var | checkWeek")
         console.log(this.available);
 
@@ -70,16 +72,18 @@ export class MarkAttendancePage {
 
   }
 
+
   scanStudentQRCode() {
 
     console.log(this.selectWeek);
-
-    if (this.checkAvailability(this.unit_Ob.unit_id, this.selectWeek)) {
+    var weekStatus = this.checkAvailability(this.unit_Ob.unit_id, this.selectWeek);
+    console.log("week Status");
+    console.log(weekStatus);
+    if (weekStatus == true) {
       // this.message = this.selectWeek + " already marked";
-      this.showStudentScannedPopup('week');
+      this.showWeekScannedPopup(weekStatus, this.selectWeek, this.unit_Ob);
 
-    } else {
-
+    } else if (weekStatus == false) {
 
       var studentIdArray = this.getAvailableStudents();
       console.log("Scan | Student Array");
@@ -128,7 +132,7 @@ export class MarkAttendancePage {
           this.attendance.unit_id = this.unit_Ob.unit_id;
           this.attendance.student_id = this.studentObj[i].user_id;
           this.attendance.week_number = this.selectWeek;
-          this.attendance.attendance = "0";
+          this.attendance.attendance = 0;
           console.log("mark students")
           console.log(this.attendance);
           this.markStudent(this.attendance);
@@ -138,7 +142,7 @@ export class MarkAttendancePage {
             this.attendance.unit_id = this.unit_Ob.unit_id;
             this.attendance.student_id = this.studentObj[i].user_id;
             this.attendance.week_number = this.selectWeek;
-            this.attendance.attendance = "1";
+            this.attendance.attendance = 1;
             console.log("mark student updated")
             console.log(this.attendance);
             this.markStudentAttendance(this.attendance);
@@ -173,9 +177,6 @@ export class MarkAttendancePage {
     else if (result == 'unmatch') {
       this.message = "No student records found";
       this.subMessage = "Please press new student button to try again or press finish button to end marking";
-    } else if (result == 'week') {
-      this.message = "Already Marked";
-      this.subMessage = "This week is already marked";
     }
 
     let alert = this.alertCtrl.create({
@@ -191,6 +192,26 @@ export class MarkAttendancePage {
           text: 'Finish',
           handler: () => {
             this.navCtrl.push(ViewCoursesPage);
+          }
+        }]
+    });
+    alert.present();
+  }
+
+  showWeekScannedPopup(result, week, obj) {
+    if (result == true) {
+      this.message = "Week " + week + " has already marked";
+      this.subMessage = "Please select new week";
+    }
+
+    let alert = this.alertCtrl.create({
+      title: this.message,
+      subTitle: this.subMessage,
+      buttons: [
+        {
+          text: 'Finish',
+          handler: () => {
+            this.navCtrl.push(MarkAttendancePage, obj);
           }
         }]
     });
