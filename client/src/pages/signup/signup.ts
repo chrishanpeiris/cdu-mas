@@ -12,6 +12,7 @@ export class SignupPage {
 
  public type : boolean=false;
  public spinner : boolean=false;
+ public validationError: any;
 
 
   typeValue()
@@ -27,7 +28,7 @@ export class SignupPage {
     }
   }
 
-  user = {email: '',name:'', password: '',student_id:'',mobile:'',type:0 ,device:'',_token:''};
+ public user = {email: '',name:'', password: '',student_id:'',mobile:'',type:0 ,device:'',_token:''};
 
 
   authresponse: any;
@@ -42,12 +43,44 @@ export class SignupPage {
   registerUser(params){
     this.spinner = true;
     this.AuthProvider.userRegistration(this.user).then((result) => {
+      
       this.authresponse = result;
-      if (this.authresponse != null) {
+      debugger
+      if (this.authresponse.name == "The name field is required." ) {
         this.spinner = false;
-        this.showRegistrationSuccessAlert();
-        this.navCtrl.push(LoginPage);
+        this.validationError = this.authresponse.name;
+        this.showValidationAlert();
       }
+      else if (this.authresponse.email == "The email field is required." || this.authresponse.email == "The email must be a valid email address.") {
+        this.spinner = false;
+        this.validationError = this.authresponse.email;
+        this.showValidationAlert();
+      }
+      else if (this.authresponse.student_id == "The student id field is required." || this.authresponse.student_id == "The student id may not be greater than 7 characters." || this.authresponse.student_id == "The student id must be at least 7 characters.") {
+        this.spinner = false;
+        this.validationError = this.authresponse.student_id;
+        this.showValidationAlert();
+      }
+      else if (this.authresponse.mobile == "The mobile field is required." || this.authresponse.mobile == "The mobile may not be greater than 10 characters." ) {
+        this.spinner = false;
+        this.validationError = this.authresponse.mobile;
+        this.showValidationAlert();
+      }
+      else if (this.authresponse.password == "The password field is required." || this.authresponse.password == "The password must be at least 6 characters." || this.authresponse.password == "The password confirmation does not match.") {
+        this.spinner = false;
+        this.validationError = this.authresponse.password;
+        this.showValidationAlert();
+      }
+
+      else {
+        if (this.authresponse != null) {
+          this.spinner = false;
+          this.showRegistrationSuccessAlert();
+          this.navCtrl.push(LoginPage);
+        }
+      }
+
+
     }, (err) => {
       this.autherrors = err;
 
@@ -57,7 +90,9 @@ export class SignupPage {
         console.log(this.errormessage);
       }
       console.log(this.autherrors);
+      
     });
+    
   }
 
   showRegistrationFaildAlert() {
@@ -71,6 +106,15 @@ export class SignupPage {
     let alert = this.alertCtrl.create({
       title: 'You are successfully registered',
       subTitle: 'Log with your email and password',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showValidationAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Warning',
+      subTitle: this.validationError,
       buttons: ['OK']
     });
     alert.present();

@@ -3,7 +3,7 @@
     <div *ngFor="let item of units">
 
     <ion-item color="none" id="viewCourses-list-item20" on-click="gotoCourse(item)">
-      {{item?.unit_name}}
+      <ion-label text-wrap>{{item?.unit_name | uppercase}} </ion-label>
       <ion-icon name="arrow-round-forward" item-right></ion-icon>
     </ion-item>
     </div>
