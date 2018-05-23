@@ -19,9 +19,12 @@ export class MarkAttendancePage {
   public matchedId: any;
   available: any;
   public avlblStudents: any;
-
+  authresponse: any;
+  autherrors: any;
   public selectWeek: any;
   unit_Ob: any;
+
+  attendance = {unit_id: "", student_id: "", week_number: "", attendance: ""};
 
   constructor(public navCtrl: NavController, public navParam: NavParams, private barcodeScanner: BarcodeScanner, public alertCtrl: AlertController, public authProvider: AuthProvider) {
 
@@ -29,10 +32,10 @@ export class MarkAttendancePage {
     console.log("unit_Ob in const")
     console.log(this.unit_Ob);
     console.log("default Week");
-    this.selectWeek="Week 01";
+    this.selectWeek = "Week 01";
     console.log(this.selectWeek);
     // console.log("checkAvailability in const")
-    console.log(this.checkAvailability(this.unit_Ob.unit_id,this.selectWeek));
+    console.log(this.checkAvailability(this.unit_Ob.unit_id, this.selectWeek));
     // console.log("getAvailableStudents in const")
     console.log(this.getAvailableStudents());
 
@@ -60,9 +63,9 @@ export class MarkAttendancePage {
 
     });
 
-   /* this.avlblStudents = JSON.parse(this.avlblStudents);
-    console.log("avlblStudents var | getAvailableStudents parse");
-    console.log(this.avlblStudents);*/
+    /* this.avlblStudents = JSON.parse(this.avlblStudents);
+     console.log("avlblStudents var | getAvailableStudents parse");
+     console.log(this.avlblStudents);*/
     return this.avlblStudents;
 
   }
@@ -76,8 +79,6 @@ export class MarkAttendancePage {
       this.showStudentScannedPopup('week');
 
     } else {
-
-
 
 
       var studentIdArray = this.getAvailableStudents();
@@ -108,24 +109,40 @@ export class MarkAttendancePage {
         this.scannedCode = str.slice(-2);
 
         var number1 = this.scannedCode.substring(0, this.scannedCode.length - 1);
-		    var number2 = this.scannedCode;
+        var number2 = this.scannedCode;
 
 
         if (number1 == 0) {
           this.scannedCode = this.scannedCode.slice(-1);
-        } 
-	    	else {
-		      this.scannedCode = number2;
-		    }
+        }
+        else {
+          this.scannedCode = number2;
+        }
 
         //var studentId = 's3115458';
 
 
-
         for (var i = 0; i < this.studentObj.length; i++) {
           this.matchedSearch = this.studentObj[i].user_id;
+
+          this.attendance.unit_id = this.unit_Ob.unit_id;
+          this.attendance.student_id = this.studentObj[i].user_id;
+          this.attendance.week_number = this.selectWeek;
+          this.attendance.attendance = "0";
+          console.log("mark students")
+          console.log(this.attendance);
+          this.markStudent(this.attendance);
+
           if (this.matchedSearch == this.scannedCode) {
             this.matchedId = this.matchedSearch;
+            this.attendance.unit_id = this.unit_Ob.unit_id;
+            this.attendance.student_id = this.studentObj[i].user_id;
+            this.attendance.week_number = this.selectWeek;
+            this.attendance.attendance = "1";
+            console.log("mark student updated")
+            console.log(this.attendance);
+            this.markStudentAttendance(this.attendance);
+
           }
         }
 
@@ -153,11 +170,10 @@ export class MarkAttendancePage {
       this.message = "Student marked successfully";
       this.subMessage = "Please press new student button to mark the next student or press finish button to end marking";
     }
-    else if(result == 'unmatch') {
+    else if (result == 'unmatch') {
       this.message = "No student records found";
       this.subMessage = "Please press new student button to try again or press finish button to end marking";
-    }else if(result=='week')
-    {
+    } else if (result == 'week') {
       this.message = "Already Marked";
       this.subMessage = "This week is already marked";
     }
@@ -179,6 +195,42 @@ export class MarkAttendancePage {
         }]
     });
     alert.present();
+  }
+
+  markStudent(data) {
+
+    this.authProvider.markAttendance(data).then((result) => {
+      this.authresponse = result;
+      console.log("student marked")
+      console.log(this.authresponse);
+      return true;
+    }, (err) => {
+      this.autherrors = err;
+      if (err.statusText = "Unauthorized") {
+        return false;
+      }
+      console.log(this.autherrors);
+      return false;
+    });
+
+  }
+
+  markStudentAttendance(data) {
+
+    this.authProvider.updateAttendance(data).then((result) => {
+      this.authresponse = result;
+      console.log("student mark updated")
+      console.log(this.authresponse);
+      return true;
+    }, (err) => {
+      this.autherrors = err;
+      if (err.statusText = "Unauthorized") {
+        return false;
+      }
+      console.log(this.autherrors);
+      return false;
+    });
+
   }
 
 }
