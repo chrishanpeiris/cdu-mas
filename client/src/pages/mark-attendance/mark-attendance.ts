@@ -105,7 +105,19 @@ export class MarkAttendancePage {
         this.scannedCode = barcodeData.text;
         var str = this.scannedCode;
         str = str.substring(0, str.length - 3);
-        this.scannedCode = str.toString().split('').pop();
+        this.scannedCode = str.slice(-2);
+
+        var number1 = this.scannedCode.substring(0, this.scannedCode.length - 1);
+		    var number2 = this.scannedCode;
+
+
+        if (number1 == 0) {
+          this.scannedCode = this.scannedCode.slice(-1);
+        } 
+	    	else {
+		      this.scannedCode = number2;
+		    }
+
         //var studentId = 's3115458';
 
 

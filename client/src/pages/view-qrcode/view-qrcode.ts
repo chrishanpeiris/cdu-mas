@@ -36,7 +36,7 @@ export class ViewQRCodePage {
     this.authProvider.getUser()
       .then(data =>{
         this.user=data;
-        this.createdCode=this.user.student_id +this.user.id+this.randomNumber;
+        this.createdCode=this.user.student_id +'0'+ this.user.id+this.randomNumber;
         console.log(this.createdCode);
 
       });
