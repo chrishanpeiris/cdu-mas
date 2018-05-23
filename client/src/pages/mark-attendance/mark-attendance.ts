@@ -26,7 +26,15 @@ export class MarkAttendancePage {
   constructor(public navCtrl: NavController, public navParam: NavParams, private barcodeScanner: BarcodeScanner, public alertCtrl: AlertController, public authProvider: AuthProvider) {
 
     this.unit_Ob = this.navParam.data;
+    console.log("unit_Ob in const")
     console.log(this.unit_Ob);
+    console.log("default Week");
+    this.selectWeek="Week 01";
+    console.log(this.selectWeek);
+    // console.log("checkAvailability in const")
+    console.log(this.checkAvailability(this.unit_Ob.unit_id,this.selectWeek));
+    // console.log("getAvailableStudents in const")
+    console.log(this.getAvailableStudents());
 
   }
 
@@ -35,6 +43,7 @@ export class MarkAttendancePage {
     this.authProvider.checkWeekAvailability(id, week)
       .then(data => {
         this.available = data;
+        console.log("availabl var | checkWeek")
         console.log(this.available);
 
       });
@@ -46,12 +55,14 @@ export class MarkAttendancePage {
 
     this.authProvider.getUnitStudents(this.unit_Ob.unit_id).then(data => {
       this.avlblStudents = data;
+      console.log("avlblStudents var | getAvailableStudents")
       console.log(this.avlblStudents);
 
     });
 
-    this.avlblStudents = JSON.stringify(this.avlblStudents);
-    console.log(this.avlblStudents);
+   /* this.avlblStudents = JSON.parse(this.avlblStudents);
+    console.log("avlblStudents var | getAvailableStudents parse");
+    console.log(this.avlblStudents);*/
     return this.avlblStudents;
 
   }
@@ -63,8 +74,31 @@ export class MarkAttendancePage {
     if (this.checkAvailability(this.unit_Ob.unit_id, this.selectWeek)) {
       // this.message = this.selectWeek + " already marked";
       this.showStudentScannedPopup('week');
-    
+
     } else {
+
+
+
+
+      var studentIdArray = this.getAvailableStudents();
+      console.log("Scan | Student Array");
+      console.log(studentIdArray);
+      /*var studentIdArray = {
+        "students": [
+          {"name": "Student1", "student_id": "S310954", "user_id": "1"},
+          {"name": "Lecturer1", "student_id": "L234789", "user_id": "2"},
+          {"name": "Rock", "student_id": "S377488", "user_id": "3"},
+          {"name": "Rock", "student_id": "S987124", "user_id": "4"},
+          {"name": "Rock1", "student_id": "S123654", "user_id": "5"},
+          {"name": "RockFang", "student_id": "S897567", "user_id": "6"}
+        ]
+      }*/
+
+      this.studentObj = studentIdArray;
+      console.log("Scan | studentObj");
+      console.log(this.studentObj);
+      console.log("studentObj.length");
+      console.log(this.studentObj.length);
 
 
       this.barcodeScanner.scan().then(barcodeData => {
@@ -75,20 +109,6 @@ export class MarkAttendancePage {
         //var studentId = 's3115458';
 
 
-        var studentIdArray = this.getAvailableStudents();
-        console.log(studentIdArray);
-        /*var studentIdArray = {
-          "students": [
-            {"name": "Student1", "student_id": "S310954", "user_id": "1"},
-            {"name": "Lecturer1", "student_id": "L234789", "user_id": "2"},
-            {"name": "Rock", "student_id": "S377488", "user_id": "3"},
-            {"name": "Rock", "student_id": "S987124", "user_id": "4"},
-            {"name": "Rock1", "student_id": "S123654", "user_id": "5"},
-            {"name": "RockFang", "student_id": "S897567", "user_id": "6"}
-          ]
-        }*/
-
-        this.studentObj = studentIdArray.students;
 
         for (var i = 0; i < this.studentObj.length; i++) {
           this.matchedSearch = this.studentObj[i].user_id;
