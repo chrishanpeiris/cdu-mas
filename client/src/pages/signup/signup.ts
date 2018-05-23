@@ -45,7 +45,6 @@ export class SignupPage {
     this.AuthProvider.userRegistration(this.user).then((result) => {
       
       this.authresponse = result;
-      debugger
       if (this.authresponse.name == "The name field is required." ) {
         this.spinner = false;
         this.validationError = this.authresponse.name;
