@@ -189,4 +189,23 @@ export class AuthProvider {
     });
   }
 
+  resetPassword(data){
+
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiURL + '/password/email', JSON.stringify(data), {
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', 'Bearer' + this.getToken()),
+      })
+        .subscribe(res => {
+          resolve(res);
+          console.log(res);
+
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        })
+    });
+
+
+  }
+
 }

@@ -19,8 +19,8 @@ export class MarkAttendancePage {
   public matchedId: any;
   available: any;
   public avlblStudents: any;
-  authresponse: any;
-  autherrors: any;
+  public authresponse: any;
+  public autherrors: any;
   public selectWeek: any;
   unit_Ob: any;
 
