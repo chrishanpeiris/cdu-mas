@@ -144,11 +144,10 @@ export class AuthProvider {
 
   }
 
-  checkWeekAvailability(unit_id,week)
-  {
+  checkWeekAvailability(unit_id, week) {
     return new Promise((resolve, reject) => {
       this.http.get(this.apiURL + '/mark/check', {
-        params: {id: unit_id,week: week},
+        params: {id: unit_id, week: week},
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
           .set('Authorization', 'Bearer' + this.getToken()),
       })
@@ -162,6 +161,12 @@ export class AuthProvider {
         })
     });
   }
+
+  markAttendance(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiURL + '/mark/store', JSON.stringify(data), {
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', 'Bearer' + this.getToken()),
+      })
         .subscribe(res => {
           resolve(res);
           console.log(res);
