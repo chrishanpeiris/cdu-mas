@@ -23,6 +23,7 @@ export class MarkAttendancePage {
   public autherrors: any;
   public selectWeek: any;
   unit_Ob: any;
+  public spinner : boolean=false;
 
   attendance = {unit_id: 0, student_id: 0, week_number: 0, attendance: 0};
 
@@ -42,9 +43,10 @@ export class MarkAttendancePage {
   }
 
   checkAvailability(id, week) {
-
+    this.spinner = true;
     this.authProvider.checkWeekAvailability(id, week)
       .then(data => {
+        this.spinner = false;
         this.available = data;
         console.log(id);
         console.log(week);
@@ -57,8 +59,9 @@ export class MarkAttendancePage {
   }
 
   getAvailableStudents() {
-
+    this.spinner = true;
     this.authProvider.getUnitStudents(this.unit_Ob.unit_id).then(data => {
+      this.spinner = false;
       this.avlblStudents = data;
       console.log("avlblStudents var | getAvailableStudents")
       console.log(this.avlblStudents);

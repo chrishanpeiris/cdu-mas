@@ -16,7 +16,7 @@
         <ion-input type="password" [(ngModel)]="user.password" name="password" placeholder="Password"></ion-input>
       </ion-item>
     </ion-list>
-    <button id="login-button3" ion-button clear color="dark" block small style="color:#000000;font-size:14px;text-align:left;" on-click="goToForgotPassword()">
+    <button id="login-button3" ion-button clear color="dark" block small style="color:#000000;font-size:14px;text-align:left;" (click)="openWithInAppBrowser('http://cdu-mas.herokuapp.com/password/reset')">
       Forgot password?
     </button>
     <button id="login-button1" ion-button color="dark" block style="color:#FFFFFF;" on-click="goToStudentHome()">

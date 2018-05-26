@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {AlertController, NavController} from 'ionic-angular';
 import {AuthProvider} from "../../providers/auth/auth";
-import {StudentHomePage} from "../student-home/student-home";
+//import {StudentHomePage} from "../student-home/student-home";
 import {LoginPage} from "../login/login";
 
 @Component({
@@ -44,13 +44,18 @@ export class SignupPage {
     this.spinner = true;
     this.AuthProvider.userRegistration(this.user).then((result) => {
       this.authresponse = result;
-      var errorMsg = this.authresponse;
-      if (this.authresponse.name == "The name field is required." ) {
+      //var errorMsg = this.authresponse;
+      if (!!this.authresponse.token){
+        this.spinner = false;
+        this.showRegistrationSuccessAlert();
+        this.navCtrl.push(LoginPage);
+      }
+      else if (this.authresponse.name == "The name field is required." ) {
         this.spinner = false;
         this.validationError = this.authresponse.name;
         this.showValidationAlert();
       }
-      else if (this.authresponse.email == "The email field is required." || this.authresponse.email == "The email must be a valid email address.") {
+      else if (this.authresponse.email == "The email field is required." || this.authresponse.email == "The email must be a valid email address." || this.authresponse.email == "The email has already been taken.") {
         this.spinner = false;
         this.validationError = this.authresponse.email;
         this.showValidationAlert();
@@ -69,14 +74,6 @@ export class SignupPage {
         this.spinner = false;
         this.validationError = this.authresponse.password;
         this.showValidationAlert();
-      }
-
-      else {
-        if (this.authresponse != null) {
-          this.spinner = false;
-          this.showRegistrationSuccessAlert();
-          this.navCtrl.push(LoginPage);
-        }
       }
 
 
@@ -101,7 +98,8 @@ export class SignupPage {
       buttons: ['OK']
     });
     alert.present();
-  }showRegistrationSuccessAlert() {
+  }
+  showRegistrationSuccessAlert() {
     let alert = this.alertCtrl.create({
       title: 'You are successfully registered',
       subTitle: 'Log with your email and password',

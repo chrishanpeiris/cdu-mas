@@ -21,6 +21,7 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { TabsStudentPage } from '../pages/tabs-student/tabs-student';
 import { TabsLecturePage } from '../pages/tabs-lecture/tabs-lecture';
 import { MarkAttendancePage } from '../pages/mark-attendance/mark-attendance';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { HttpClientModule } from '@angular/common/http';
 import {NgxQRCodeModule} from "ngx-qrcode3";
@@ -89,7 +90,8 @@ import { AttendanceProvider } from '../providers/attendance/attendance';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     BarcodeScanner,
-    AttendanceProvider
+    AttendanceProvider,
+    InAppBrowser
   ]
 })
 export class AppModule {}
