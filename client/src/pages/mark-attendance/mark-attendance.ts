@@ -76,6 +76,64 @@ export class MarkAttendancePage {
   }
 
 
+  newStudent(){
+
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.scannedCode = barcodeData.text;
+      var str = this.scannedCode;
+      str = str.substring(0, str.length - 3);
+      this.scannedCode = str.slice(-2);
+
+      var number1 = this.scannedCode.substring(0, this.scannedCode.length - 1);
+      var number2 = this.scannedCode;
+
+
+      if (number1 == 0) {
+        this.scannedCode = this.scannedCode.slice(-1);
+      }
+      else {
+        this.scannedCode = number2;
+      }
+
+      //var studentId = 's3115458';
+
+
+      for (var i = 0; i < this.studentObj.length; i++) {
+        this.matchedSearch = this.studentObj[i].user_id;
+
+        /*this.attendance.unit_id = this.unit_Ob.unit_id;
+        this.attendance.student_id = this.studentObj[i].user_id;
+        this.attendance.week_number = this.selectWeek;
+        this.attendance.attendance = 0;
+        console.log("mark students")
+        console.log(this.attendance);
+        this.markStudent(this.attendance);*/
+
+        if (this.matchedSearch == this.scannedCode) {
+          this.matchedId = this.matchedSearch;
+          this.attendance.unit_id = this.unit_Ob.unit_id;
+          this.attendance.student_id = this.studentObj[i].user_id;
+          this.attendance.week_number = this.selectWeek;
+          this.attendance.attendance = 1;
+          console.log("mark student updated")
+          console.log(this.attendance);
+          this.markStudentAttendance(this.attendance);
+
+        }
+      }
+
+      if (this.scannedCode == this.matchedId) {
+        this.showStudentScannedPopup('match');
+      }
+      else {
+        this.showStudentScannedPopup('unmatch');
+      }
+    }).catch(err => {
+      console.log('Error', err);
+    });
+
+  }
+
   scanStudentQRCode() {
 
     console.log(this.selectWeek);
@@ -188,7 +246,7 @@ export class MarkAttendancePage {
       buttons: [{
         text: 'New student',
         handler: () => {
-          this.scanStudentQRCode();
+          this.newStudent();
         }
       },
         {
