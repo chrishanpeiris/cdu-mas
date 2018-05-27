@@ -29,7 +29,7 @@ export class SearchAttendancePage {
     console.log(this.unit_Ob);
     console.log(this.unit_Ob.unit_id);
     this.selectWeek = 1;
-
+    this.getAllStudents();
 
   }
 
@@ -49,13 +49,45 @@ export class SearchAttendancePage {
     return this.available;
   }
 
+
+
+  getAllStudents()
+  {
+    this.spinner = true;
+    this.atndncProvider.getAllStudents(this.unit_Ob.unit_id,this.selectWeek)
+      .then(data => {
+        this.spinner = false;
+        console.log(data);
+        this.allstudents=data;
+        console.log(this.allstudents);
+        console.log(this.unit_Ob.unit_id);
+        console.log(this.selectWeek);
+
+      });
+
+    return this.allstudents;
+  }
+
+  getPresentStudents(){
+    this.spinner = true;
+    this.atndncProvider.getAttendance(this.unit_Ob.unit_id,this.selectWeek)
+      .then(data => {
+        this.spinner = false;
+        console.log(data);
+        this.precenStudnt=data;
+        console.log(this.precenStudnt);
+        console.log(this.unit_Ob.unit_id);
+        console.log(this.selectWeek);
+        this.showWeekScannedPopup(this.selectWeek,this.precenStudnt,this.allstudents);
+      });
+
+    return this.precenStudnt;
+  }
+
   searchAttendance() {
     this.weekStatus = false;
     console.log(this.selectWeek);
-
-
-    this.showWeekScannedPopup(this.selectWeek,this.getPresentStudents(),this.getAllStudents());
-
+    this.getPresentStudents();
   }
 
   showWeekScannedPopup(week, total,all) {
@@ -69,35 +101,6 @@ export class SearchAttendancePage {
         }]
     });
     alert.present();
-  }
-
-  getAllStudents()
-  {
-    this.atndncProvider.getAllStudents(this.unit_Ob.unit_id,this.selectWeek)
-      .then(data => {
-        console.log(data);
-        this.allstudents=data;
-        console.log(this.allstudents);
-        console.log(this.unit_Ob.unit_id);
-        console.log(this.selectWeek);
-
-      });
-
-    return this.allstudents;
-  }
-
-  getPresentStudents(){
-    this.atndncProvider.getAttendance(this.unit_Ob.unit_id,this.selectWeek)
-      .then(data => {
-        console.log(data);
-        this.precenStudnt=data;
-        console.log(this.precenStudnt);
-        console.log(this.unit_Ob.unit_id);
-        console.log(this.selectWeek);
-
-      });
-
-    return this.precenStudnt;
   }
 
 }
