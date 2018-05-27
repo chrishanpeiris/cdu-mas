@@ -40,7 +40,7 @@ export class CoursePage {
 
   goToSearchAttendance(params){
     if (!params) params = {};
-    this.navCtrl.push(SearchAttendancePage);
+    this.navCtrl.push(SearchAttendancePage,this.unit_id);
   }
   goToMarking(unit_id) {
 

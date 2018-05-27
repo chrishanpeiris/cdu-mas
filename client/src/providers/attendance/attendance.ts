@@ -37,5 +37,41 @@ export class AttendanceProvider {
     });
   }
 
+  getAttendance(unit_id,week){
+    return new Promise((resolve,reject)=>{
+      this.http.get(this.apiURL+'/mark/getpresent', {
+        params: { unit_id:unit_id,week:week},
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
+          .set('Authorization','Bearer'+this.authProvider.getToken()),
+      })
+        .subscribe(res => {
+          resolve(res);
+          console.log(res);
+
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        })
+    });
+  }
+
+  getAllStudents(unit_id,week){
+    return new Promise((resolve,reject)=>{
+      this.http.get(this.apiURL+'/mark/allstudents', {
+        params: { unit_id:unit_id,week:week},
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')
+          .set('Authorization','Bearer'+this.authProvider.getToken()),
+      })
+        .subscribe(res => {
+          resolve(res);
+          console.log(res);
+
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        })
+    });
+  }
+
 
 }
