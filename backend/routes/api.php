@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,6 +15,13 @@ use Illuminate\Http\Request;
     return $request->user();
 });*/
 
+
+Route::get('mark/check', 'AttendanceController@checkWeek');
+Route::post('mark/attendance','AttendanceController@storeStudent');
+Route::post('mark/present','AttendanceController@updateStudent');
+Route::get('mark/getpresent','AttendanceController@getAttendanceMark');
+Route::get('mark/allstudents','AttendanceController@getAllStudentCount');
+
 Route::group(['prefix' => 'auth'], function ($router) {
 
     Route::post('login', 'AuthController@login');
@@ -26,7 +31,12 @@ Route::group(['prefix' => 'auth'], function ($router) {
 
 });
 
-//Route::resource('unit','UnitController');
-Route::post('register','ApiRegisterController@register');
 
-//Auth::routes();
+//Route::get('unit/{id}','UnitController@getLectureUnits');
+Route::resource('unit', 'UnitController');
+Route::resource('mark', 'AttendanceController');
+Route::post('register', 'ApiRegisterController@register');
+
+
+
+// Auth::routes();
